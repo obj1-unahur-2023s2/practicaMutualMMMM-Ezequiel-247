@@ -1,0 +1,163 @@
+import socios.*
+import viajes.*
+
+describe "test etapa 1" {
+	const viajesCiudad1 = new ViajesCiudad(cantidadDeAtracciones = 4) 
+	
+	const viajesCiudadTropical1 = new ViajesACiudadTropical(cantidadDeAtracciones = 4)
+	
+	const viajesCiudadTropical2 = new ViajesACiudadTropical(cantidadDeAtracciones = 8)
+	
+	const viajesCiudadTropical3 = new ViajesACiudadTropical(cantidadDeAtracciones = 10)
+	
+	const viajesDeTrekkin1 = new ViajesDeTrekking(kilometrosDeSenderos = 100, diasDeSolPorAnio = 130)
+	
+	const viajesDeTrekkin2 = new ViajesDeTrekking(kilometrosDeSenderos = 50, diasDeSolPorAnio = 240)
+	
+	const viajesDeTrekkin3 = new ViajesDeTrekking(kilometrosDeSenderos = 250, diasDeSolPorAnio = 130)
+	
+	// TEST CIUDAD
+	test "ciudad1 lleva 2 dias"{
+		assert.equals(2,viajesCiudad1.cantidadDeDias())	
+	}
+	
+	test "ciudad1 implica esfuerzo"{
+		assert.notThat(viajesCiudad1.implicaEsfuerzo())
+	}
+	
+	test "ciudad1 no puede broncearse"{
+		assert.notThat(viajesCiudad1.puedeBroncearse())
+	}
+	
+	//TEST PRIMER CIUDAD TROPICAL
+	test "ciudad tropical1  puede broncearse"{
+		assert.that(viajesCiudadTropical1.puedeBroncearse())
+	}
+	
+	test "ciudad tropical1  no implica esfuerzo"{
+		assert.notThat(viajesCiudadTropical1.implicaEsfuerzo())
+	}
+	
+	test "ciudad tropical1 lleva 3 dias"{
+		assert.equals(3,viajesCiudadTropical1.cantidadDeDias())
+	}
+	
+	//TEST SEGUNDA CIUDAD TROPICAL
+	test "ciudad tropical2 lleva 5 dias"{
+		assert.equals(5,viajesCiudadTropical2.cantidadDeDias())
+	}
+	
+	test "ciudad tropical2 implica esfuerzo"{
+		assert.that(viajesCiudadTropical2.implicaEsfuerzo())
+	}
+	
+	test "ciudad tropical2 puede broncearse"{
+		assert.that(viajesCiudadTropical2.puedeBroncearse())
+	}
+	
+	//TEST TERCER CIUDAD TROPICAL
+	
+	test "ciudad tropical 3 lleva 6 dias"{
+		assert.equals(6,viajesCiudadTropical3.cantidadDeDias())
+	}
+	
+	test "ciudad tropical 3 no implica esfuerzo"{
+		assert.notThat(viajesCiudadTropical3.implicaEsfuerzo())
+	}
+	
+	test "ciudad tropical 3 puede broncearse"{
+		assert.that(viajesCiudadTropical3.puedeBroncearse())
+	}
+	
+	//TEST TREKING
+	test "viajes de treking 1 lleva 2 dias"{
+		assert.equals(2,viajesDeTrekkin1.cantidadDeDias())
+	}
+	
+	test "viajes de treking 1 implica esfuerzo"{
+		assert.that(viajesDeTrekkin1.implicaEsfuerzo())
+	}
+	
+	test "viajes de treking 1 no sirve para broncearse"{
+		assert.notThat(viajesDeTrekkin1.puedeBroncearse())
+	}
+	
+	//TEST TREKING 2 
+	
+	test "treking 2 lleva 1 dia"{
+		assert.equals(1,viajesDeTrekkin2.cantidadDeDias())
+	}
+	
+	test "treking 2 no implica esfuerzo"{
+		assert.notThat(viajesDeTrekkin2.implicaEsfuerzo())
+	}
+	
+	test "trenking 2 puede broncearse"{
+		assert.that(viajesDeTrekkin2.puedeBroncearse())
+	}
+	
+	
+	//TEST TREKING 3
+	
+	test "trekin 3 lleva 5 dias"{
+		assert.equals(5,viajesDeTrekkin3.cantidadDeDias())
+	}
+	
+	test "trekin 3 implica esfuerzo"{
+		assert.that(viajesDeTrekkin3.implicaEsfuerzo())
+	}
+	
+	test " trekin 3 puede broncearse"{
+		assert.that(viajesDeTrekkin3.puedeBroncearse())
+	}
+
+}
+describe "test ejemplo primer socio"{
+	const roque = new Socios(maximoDeActividades = 2, edad = 30)
+	const viajePlaya1 = new ViajesDePlaya(largo = 1000)
+	const viajePlaya2 = new ViajesDePlaya(largo = 2000)
+	const claseDeGym = new ClasesDeGym()
+	
+	method initialize(){
+		roque.realizarActividad(viajePlaya1)
+		roque.realizarActividad(viajePlaya2)
+	}
+	
+	test "roque es adorador del sol"{
+		assert.that(roque.esAdoradorDeSol())
+	}
+	
+	test "roque actividades forzadas"{
+		assert.equals([viajePlaya2],roque.actividadesEsforzadas())
+	}
+	
+	test "generar error"{
+		roque.realizarActividad(claseDeGym)
+	}
+}
+
+describe "test de Ana"{
+	const ana = new Socios(maximoDeActividades = 3, edad = 30)
+	const viajePlaya1 = new ViajesDePlaya(largo = 1000)
+	const viajePlaya2 = new ViajesDePlaya(largo = 2000)
+	const claseDeGym = new ClasesDeGym()
+	
+	method initialize(){
+		ana.realizarActividad(viajePlaya1)
+		ana.realizarActividad(viajePlaya2)
+		ana.realizarActividad(claseDeGym)
+	}
+	
+	test "ana no es adorador del sol"{
+		assert.notThat(ana.esAdoradorDeSol())
+	}
+	
+	test "roque actividades forzadas"{
+		assert.equals([viajePlaya2,claseDeGym],ana.actividadesEsforzadas())
+	}
+	
+	test "generar error"{
+		assert.equals(3,ana.cantDeActividadesQueRealizo())
+	}
+}
+
