@@ -38,7 +38,7 @@ class SocioRelajado inherits Socios {
 	method leAtraeUnaActividad(unaActividad) = not idiomas.interseccion(unaActividad.idiomas().isEmpty())
 }
 
-
+// prueba y cambios
 
 
 
